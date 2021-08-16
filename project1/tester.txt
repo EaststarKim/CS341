@@ -1,0 +1,12 @@
+tr -dc A-Za-z0-9 </dev/urandom | head -c 50000000 > test.txt
+./client -h 143.248.53.25 -p 7878 -o 0 -k abcd < test.txt > a.txt
+./client -h 143.248.53.25 -p 7878 -o 1 -k abcd < a.txt > b.txt
+diff -i test.txt b.txt
+
+./client -h 127.0.0.1 -p 4000 -o 0 -k abcd < test.txt > a.txt
+./client -h 127.0.0.1 -p 4000 -o 1 -k abcd < a.txt > b.txt
+diff -i test.txt b.txt
+
+./client -h 143.248.53.25 -p 7878 -o 0 -k abcd < test.txt > a.txt
+./client -h 127.0.0.1 -p 4000 -o 0 -k abcd < test.txt > b.txt
+diff -i a.txt b.txt
